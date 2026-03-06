@@ -1,7 +1,6 @@
 - # PushPlus 通知集成
 [![Lastest Release](https://img.shields.io/github/release/flamestsui/pushplus.svg?style=flat)](https://github.com/flamestsui/pushplus/releases)[![GitHub All Releases](https://img.shields.io/github/downloads/flamestsui/pushplus/total)](https://github.com/flamestsui/pushplus/releases)
 
-<<<<<<< HEAD
 这是一个适用于 Home Assistant 的 PushPlus 通知集成，允许你通过 PushPlus 服务发送通知消息到你的设备。
 
 ## 功能介绍
