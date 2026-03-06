@@ -1,0 +1,35 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "PushPlus 通知",
+        "data": {
+          "token": "Token",
+          "channel": "推送渠道"
+        },
+        "data_description": {
+          "token": "在 PushPlus 官网获取的 Token",
+          "channel": "推送渠道，多个用逗号分隔，如 wechat,app,extension"
+        }
+      }
+    },
+    "error": {
+      "missing_token": "请输入 PushPlus Token"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "PushPlus 设置",
+        "data": {
+          "token": "Token",
+          "channel": "推送渠道"
+        },
+        "data_description": {
+          "token": "在 PushPlus 官网获取的 Token",
+          "channel": "推送渠道，多个用逗号分隔，如 wechat,app,extension"
+        }
+      }
+    }
+  }
+}

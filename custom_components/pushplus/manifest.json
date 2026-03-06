@@ -1,7 +1,7 @@
 {
   "domain": "pushplus",
   "name": "PushPlus 通知",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "config_flow": true,
   "requirements": ["requests>=2.25.1"],
   "dependencies": [],

@@ -1,14 +1,16 @@
 import logging
 import voluptuous as vol
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 
-from . import DOMAIN  # 从__init__.py导入domain
+from . import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
 # 配置项键名（与__init__.py保持一致）
 CONF_TOKEN = "token"
+CONF_CHANNEL = "channel"
 
 
 @config_entries.HANDLERS.register(DOMAIN)
@@ -39,7 +41,39 @@ class PushPlusConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({
-                vol.Required(CONF_TOKEN, msg="请输入PushPlus Token"): str,
+                vol.Required(CONF_TOKEN): str,
+                vol.Optional(CONF_CHANNEL, default="wechat,app,extension"): str,
             }),
             errors=errors
+        )
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> config_entries.OptionsFlow:
+        return PushPlusOptionsFlowHandler()
+
+
+class PushPlusOptionsFlowHandler(config_entries.OptionsFlow):
+    async def async_step_init(self, user_input=None) -> FlowResult:
+        if user_input is not None:
+            new_data = {
+                CONF_TOKEN: user_input[CONF_TOKEN],
+                CONF_CHANNEL: user_input.get(CONF_CHANNEL, ""),
+            }
+            self.hass.config_entries.async_update_entry(
+                self.config_entry, data=new_data
+            )
+            return self.async_create_entry(title="", data={})
+
+        current_token = self.config_entry.data.get(CONF_TOKEN, "")
+        current_channel = self.config_entry.data.get(CONF_CHANNEL, "")
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema({
+                vol.Required(CONF_TOKEN, default=current_token): str,
+                vol.Optional(CONF_CHANNEL, default=current_channel): str,
+            }),
         )
